@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dia6vusphl4ie"]
+
+[ext_resource type="Script" path="res://space_quiz/meteor/meteor.gd" id="1_56e17"]
+[ext_resource type="Texture2D" uid="uid://dmg32rp3217pj" path="res://space_quiz/meteor/comet-cartoon-the-meteorite-fell-to-the-earth-and-sparked-png.webp" id="1_tsurx"]
+
+[node name="meteor" type="CharacterBody2D"]
+position = Vector2(100, 500)
+script = ExtResource("1_56e17")
+
+[node name="meteor_texture" type="Sprite2D" parent="."]
+rotation = -0.837758
+scale = Vector2(0.126042, 0.108333)
+texture = ExtResource("1_tsurx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(0, 1)
+polygon = PackedVector2Array(-26, 35, -24, 62, -19, 72, -20, 84, -12, 92, 2, 92, 10, 89, 20, 76, 20, 68, 28, 60, 36, 52, 36, 44, 36, 39, 37, 34, 38, 29, 37, 13, 33, -22, 13, -82, 1, -106, -21, 1, -24, 23)

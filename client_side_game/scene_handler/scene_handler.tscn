@@ -1,0 +1,89 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmlorv5nkp2ue"]
+
+[ext_resource type="Script" path="res://scene_handler/scene_handler.gd" id="1_bvw6b"]
+[ext_resource type="Texture2D" uid="uid://djkoq60unltpd" path="res://scene_handler/error.png" id="2_wig6c"]
+[ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="3_w5fu6"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_40g5c"]
+texture = ExtResource("2_wig6c")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0cr8a"]
+font = ExtResource("3_w5fu6")
+font_size = 24
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="scenehandler" type="Node2D"]
+position = Vector2(440, 740)
+script = ExtResource("1_bvw6b")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="error_pop_up" type="Window" parent="."]
+title = "Error!"
+initial_position = 2
+size = Vector2i(500, 240)
+visible = false
+exclusive = true
+unresizable = true
+always_on_top = true
+
+[node name="error_icon" type="Panel" parent="error_pop_up"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 15.0
+offset_top = -55.0
+offset_right = 95.0
+offset_bottom = 25.0
+grow_vertical = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_40g5c")
+
+[node name="error_close_button" type="Button" parent="error_pop_up"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -45.0
+offset_right = 40.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="error_text_panel" type="Panel" parent="error_pop_up"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -100.0
+offset_right = 225.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="error_text_label" type="Label" parent="error_pop_up/error_text_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -77.5
+offset_right = 180.0
+offset_bottom = 77.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_0cr8a")
+autowrap_mode = 1
+clip_text = true
+
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_request_completed"]
+[connection signal="close_requested" from="error_pop_up" to="." method="_on_error_close_button_pressed"]
+[connection signal="pressed" from="error_pop_up/error_close_button" to="." method="_on_error_close_button_pressed"]

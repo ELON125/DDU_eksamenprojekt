@@ -1,0 +1,247 @@
+[gd_scene load_steps=8 format=3 uid="uid://cub5htfquhpmf"]
+
+[ext_resource type="Script" path="res://ui/login_screen/login_screen_code.gd" id="1_gleg2"]
+[ext_resource type="Texture2D" uid="uid://bwyahmyjmje33" path="res://space_background_image.webp" id="2_v5dme"]
+[ext_resource type="Texture2D" uid="uid://cghbbbn4hg4ix" path="res://ui/login_screen/username_icon.png" id="3_u3t4d"]
+[ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="4_8qejo"]
+[ext_resource type="Texture2D" uid="uid://dqb0ypfqpg3w0" path="res://ui/login_screen/lock_icon.png" id="5_jpe33"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k01vj"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_nui58"]
+font = ExtResource("4_8qejo")
+font_size = 130
+font_color = Color(0.494118, 0, 0.509804, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 1)
+
+[node name="login_interface" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_gleg2")
+
+[node name="background_texture" type="TextureRect" parent="."]
+modulate = Color(1, 0.462745, 0.988235, 0.796078)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -896.0
+offset_right = 512.0
+offset_bottom = 896.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_v5dme")
+
+[node name="username_panel" type="Panel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -190.0
+offset_right = 200.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k01vj")
+
+[node name="username_panel_icon" type="Panel" parent="username_panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -34.0
+offset_right = 90.0
+offset_bottom = 31.0
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="username_panel/username_panel_icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_u3t4d")
+expand_mode = 1
+
+[node name="username_inputfield" type="TextEdit" parent="username_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -30.0
+offset_right = 170.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_8qejo")
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Username"
+
+[node name="password_panel" type="Panel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = 10.0
+offset_right = 200.0
+offset_bottom = 170.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k01vj")
+
+[node name="password_panel_icon" type="Panel" parent="password_panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 20.0
+offset_top = -34.0
+offset_right = 90.0
+offset_bottom = 31.0
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="password_panel/password_panel_icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -25.0
+offset_top = -25.0
+offset_right = 25.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_jpe33")
+expand_mode = 1
+
+[node name="password_input_field" type="TextEdit" parent="password_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -30.0
+offset_right = 170.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_8qejo")
+theme_override_font_sizes/font_size = 30
+placeholder_text = "Password"
+
+[node name="button_field" type="Panel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -186.0
+offset_top = 203.0
+offset_right = 186.0
+offset_bottom = 291.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_k01vj")
+
+[node name="login_button" type="Button" parent="button_field"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 30.0
+offset_top = -25.0
+offset_right = 167.0
+offset_bottom = 25.0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_8qejo")
+theme_override_font_sizes/font_size = 24
+text = "Login"
+
+[node name="signup" type="Button" parent="button_field"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -167.0
+offset_top = -25.0
+offset_right = -30.0
+offset_bottom = 25.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_8qejo")
+theme_override_font_sizes/font_size = 24
+text = "Signup
+"
+
+[node name="game_titel_label" type="Label" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.509
+anchor_top = 0.5
+anchor_right = 0.509
+anchor_bottom = 0.5
+offset_left = -447.92
+offset_top = -396.0
+offset_right = 432.08
+offset_bottom = -230.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Space Quiz"
+label_settings = SubResource("LabelSettings_nui58")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="button_field/login_button" to="." method="_on_login_button_pressed"]
+[connection signal="pressed" from="button_field/signup" to="." method="_on_signup_button_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_request_completed"]

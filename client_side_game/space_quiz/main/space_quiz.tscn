@@ -1,0 +1,162 @@
+[gd_scene load_steps=12 format=3 uid="uid://1iyny16aqfha"]
+
+[ext_resource type="Script" path="res://space_quiz/main/space_quiz.gd" id="1_n6cjm"]
+[ext_resource type="Script" path="res://space_quiz/spaceship.gd" id="2_7pknx"]
+[ext_resource type="Texture2D" uid="uid://brlrltp02vdqp" path="res://space_quiz/main/download.png" id="3_4fqrk"]
+[ext_resource type="Script" path="res://space_quiz/meteor/meteor_spawner.gd" id="4_ka8yx"]
+[ext_resource type="Texture2D" uid="uid://62crnhnghlya" path="res://space_quiz/Screenshot 2024-03-13 at 12.45.08.png" id="6_iatlp"]
+[ext_resource type="Texture2D" uid="uid://d2timh8a1ir86" path="res://space_quiz/ui/heart.png" id="7_q215d"]
+[ext_resource type="Texture2D" uid="uid://cs4a8oem410xg" path="res://space_quiz/ui/life-line.png" id="8_apfo1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xi6vq"]
+size = Vector2(968, 448)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5l45"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 10
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ktas"]
+texture = ExtResource("7_q215d")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4mp1s"]
+texture = ExtResource("8_apfo1")
+
+[node name="space_quiz" type="Node2D"]
+position = Vector2(2.08165e-12, 2.08165e-12)
+script = ExtResource("1_n6cjm")
+
+[node name="spaceship" type="CharacterBody2D" parent="."]
+position = Vector2(440, 800)
+script = ExtResource("2_7pknx")
+
+[node name="spaceship_texture" type="Sprite2D" parent="spaceship"]
+position = Vector2(2, 4.00003)
+scale = Vector2(1.0084, 0.943396)
+texture = ExtResource("3_4fqrk")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="spaceship"]
+polygon = PackedVector2Array(3, -94, -15, -77, -31, -41, -36, -8, -33, 31, -51, 46, -59, 70, -58, 90, -55, 99, -44, 82, -31, 71, -23, 67, -20, 74, -6, 71, -3, 90, 1, 99, 4, 98, 8, 83, 10, 71, 24, 74, 27, 67, 46, 80, 59, 99, 64, 86, 62, 66, 55, 47, 37, 31, 41, 1, 36, -37, 23, -72, 4, -93)
+
+[node name="spacestation" type="CharacterBody2D" parent="."]
+position = Vector2(440, 1300)
+
+[node name="collision_shape" type="CollisionShape2D" parent="spacestation"]
+position = Vector2(1, 0)
+shape = SubResource("RectangleShape2D_xi6vq")
+
+[node name="spaceship_texture" type="Sprite2D" parent="spacestation"]
+position = Vector2(1.00003, 0)
+scale = Vector2(0.760935, 0.667229)
+texture = ExtResource("6_iatlp")
+
+[node name="meteor_spawner" type="Node2D" parent="."]
+script = ExtResource("4_ka8yx")
+
+[node name="meteor_spawn_timer" type="Timer" parent="meteor_spawner"]
+autostart = true
+
+[node name="game__ui" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 382.0
+offset_bottom = 136.0
+
+[node name="Panel" type="Panel" parent="game__ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 7.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v5l45")
+
+[node name="ProgressBar" type="ProgressBar" parent="game__ui/Panel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -113.0
+offset_top = -56.0
+offset_right = 183.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 3.0
+step = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="game__ui/Panel/ProgressBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Spacestation HP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="game__ui/Panel/ProgressBar"]
+layout_mode = 0
+offset_left = -64.0
+offset_right = -16.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_1ktas")
+
+[node name="ProgressBar2" type="ProgressBar" parent="game__ui/Panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.0
+offset_top = 8.0
+offset_right = 183.0
+offset_bottom = 56.0
+grow_horizontal = 2
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="game__ui/Panel/ProgressBar2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Question lifelines"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="game__ui/Panel/ProgressBar2"]
+layout_mode = 0
+offset_left = -64.0
+offset_right = -16.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_4mp1s")
+
+[connection signal="timeout" from="meteor_spawner/meteor_spawn_timer" to="meteor_spawner" method="_on_meteor_spawn_timer_timeout"]

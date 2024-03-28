@@ -1,0 +1,506 @@
+[gd_scene load_steps=15 format=3 uid="uid://7exsdx0taa44"]
+
+[ext_resource type="Script" path="res://ui/level_selection/level_selection_scene_code.gd" id="1_g5bv0"]
+[ext_resource type="Texture2D" uid="uid://bwyahmyjmje33" path="res://space_background_image.webp" id="2_5xlx2"]
+[ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="3_0e2ed"]
+[ext_resource type="Texture2D" uid="uid://b41h2n54b2uxv" path="res://ui/level_selection/right-arrow-7251-3.png" id="4_wrp6s"]
+[ext_resource type="Texture2D" uid="uid://yht065gv0lqe" path="res://ui/level_selection/left-arrow-7252.png" id="5_fk18t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_evlgm"]
+font = ExtResource("3_0e2ed")
+font_size = 120
+font_color = Color(0.494118, 0, 0.509804, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yo0y"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpowe"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_4dbk4"]
+font = ExtResource("3_0e2ed")
+font_size = 50
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbwc6"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_iu4bk"]
+font = ExtResource("3_0e2ed")
+font_size = 32
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8y5ul"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+draw_center = false
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxgtf"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htsie"]
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[node name="level_selection" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g5bv0")
+
+[node name="background_texture" type="TextureRect" parent="."]
+modulate = Color(1, 0.462745, 0.988235, 0.796078)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -740.0
+offset_right = 440.0
+offset_bottom = 740.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5xlx2")
+
+[node name="game_titel_label" type="Label" parent="background_texture"]
+top_level = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.509
+anchor_top = 0.5
+anchor_right = 0.509
+anchor_bottom = 0.5
+offset_left = -447.92
+offset_top = -596.0
+offset_right = 432.08
+offset_bottom = -430.0
+grow_horizontal = 2
+text = "Space Quiz"
+label_settings = SubResource("LabelSettings_evlgm")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="level_1_card_panel" type="Panel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -300.0
+offset_right = 129.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0yo0y")
+
+[node name="level_title_panel" type="Panel" parent="level_1_card_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.0
+offset_top = 25.0
+offset_right = 108.0
+offset_bottom = 97.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fpowe")
+
+[node name="level_title_text" type="Label" parent="level_1_card_panel/level_title_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -37.0
+offset_right = 108.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Easy"
+label_settings = SubResource("LabelSettings_4dbk4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="level_select_button" type="Button" parent="level_1_card_panel"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -130.0
+offset_top = -300.0
+offset_right = 130.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="level_2_card_panel" type="Panel" parent="."]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -300.0
+offset_right = 129.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0yo0y")
+
+[node name="level_title_panel" type="Panel" parent="level_2_card_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.0
+offset_top = 25.0
+offset_right = 108.0
+offset_bottom = 97.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fpowe")
+
+[node name="level_title_text" type="Label" parent="level_2_card_panel/level_title_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -37.0
+offset_right = 108.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Normal"
+label_settings = SubResource("LabelSettings_4dbk4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="level_select_button" type="Button" parent="level_2_card_panel"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -300.0
+offset_right = 130.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="level_3_card_panel" type="Panel" parent="."]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -300.0
+offset_right = 129.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0yo0y")
+
+[node name="level_titel_panel" type="Panel" parent="level_3_card_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -108.0
+offset_top = 25.0
+offset_right = 108.0
+offset_bottom = 97.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fpowe")
+
+[node name="level_title_text" type="Label" parent="level_3_card_panel/level_titel_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -108.0
+offset_top = -37.0
+offset_right = 108.0
+offset_bottom = 37.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Hard"
+label_settings = SubResource("LabelSettings_4dbk4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="level_select_button" type="Button" parent="level_3_card_panel" groups=["level_select_buttons"]]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -300.0
+offset_right = 130.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="next_button" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.509
+anchor_top = 0.495
+anchor_right = 0.509
+anchor_bottom = 0.495
+offset_left = 192.08
+offset_top = -57.6001
+offset_right = 307.08
+offset_bottom = 57.3999
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbwc6")
+
+[node name="arrow_image" type="TextureRect" parent="next_button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -34.5
+offset_right = 32.0
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_wrp6s")
+expand_mode = 1
+
+[node name="next_button" type="Button" parent="next_button"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -41.5
+offset_right = 44.0
+offset_bottom = 41.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="next_level_label" type="Label" parent="next_button"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.5
+offset_top = 10.0
+offset_right = 57.5
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Next"
+label_settings = SubResource("LabelSettings_iu4bk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="previous" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.509
+anchor_top = 0.495
+anchor_right = 0.509
+anchor_bottom = 0.495
+offset_left = -311.92
+offset_top = -57.6001
+offset_right = -196.92
+offset_bottom = 57.3999
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tbwc6")
+
+[node name="arrow_image" type="TextureRect" parent="previous"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -34.5
+offset_right = 32.0
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_fk18t")
+expand_mode = 1
+
+[node name="previous_button" type="Button" parent="previous"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -46.0
+offset_right = 45.0
+offset_bottom = 46.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="previous" type="Panel" parent="previous"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -57.5
+offset_top = -57.5
+offset_right = 57.5
+offset_bottom = 57.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8y5ul")
+
+[node name="back_level_label" type="Label" parent="previous"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.5
+offset_top = 10.0
+offset_right = 57.5
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+label_settings = SubResource("LabelSettings_iu4bk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="play_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -122.5
+offset_top = 360.0
+offset_right = 122.5
+offset_bottom = 452.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vxgtf")
+
+[node name="play_buttn" type="Button" parent="play_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -25.0
+offset_right = 68.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_0e2ed")
+theme_override_font_sizes/font_size = 24
+text = "Play"
+
+[node name="level_progress_bar" type="ProgressBar" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -103.0
+offset_top = 236.0
+offset_right = 112.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_htsie")
+max_value = 3.0
+step = 1.0
+value = 1.0
+show_percentage = false
+
+[connection signal="pressed" from="next_button/next_button" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="previous/previous_button" to="." method="_on_previous_button_pressed"]
+[connection signal="pressed" from="play_panel/play_buttn" to="." method="_on_play_buttn_pressed"]

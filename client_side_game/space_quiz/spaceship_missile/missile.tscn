@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d161rqiwmfxwa"]
+
+[ext_resource type="Script" path="res://space_quiz/spaceship_missile/missile.gd" id="1_bmktw"]
+[ext_resource type="Texture2D" uid="uid://cleqd3p24xeh8" path="res://space_quiz/spaceship_missile/missile.png" id="2_1sgu4"]
+
+[node name="missile" type="CharacterBody2D"]
+script = ExtResource("1_bmktw")
+
+[node name="missile" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+rotation = -6.28319
+scale = Vector2(0.207789, 0.221188)
+texture = ExtResource("2_1sgu4")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-6, -38, -5, -44, -2, -51, 0, -52, 2, -51, 3, -48, 5, -43, 5, -39, 5, 31, 10, 32, 10, 47, 4, 46, 4, 49, -3, 49, -4, 48, -4, 45, -9, 48, -10, 47, -10, 32, -5, 31, -6, -40)

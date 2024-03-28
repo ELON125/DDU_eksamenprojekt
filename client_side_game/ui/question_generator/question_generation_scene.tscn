@@ -1,0 +1,258 @@
+[gd_scene load_steps=13 format=3 uid="uid://b1qx17mtr3iu5"]
+
+[ext_resource type="Script" path="res://ui/question_generator/question_generation_scene_code.gd" id="1_pj5sd"]
+[ext_resource type="Texture2D" uid="uid://bwyahmyjmje33" path="res://space_background_image.webp" id="2_krg2t"]
+[ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="3_j1vg6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_chwfr"]
+font = ExtResource("3_j1vg6")
+font_size = 120
+font_color = Color(0.494118, 0, 0.509804, 1)
+shadow_size = 20
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2lm1"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+corner_radius_top_left = 60
+corner_radius_top_right = 60
+corner_radius_bottom_right = 60
+corner_radius_bottom_left = 60
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_kweqy"]
+font = ExtResource("3_j1vg6")
+font_size = 22
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l2ahu"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_shr4f"]
+font = ExtResource("3_j1vg6")
+font_size = 22
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aewtb"]
+bg_color = Color(0.6, 0.6, 0.6, 0.666667)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_slcgh"]
+font = ExtResource("3_j1vg6")
+font_size = 40
+font_color = Color(1, 1, 1, 0.513726)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0kcbr"]
+font = ExtResource("3_j1vg6")
+font_size = 20
+font_color = Color(1, 1, 1, 0.513726)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_46541"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
+
+[node name="question_generation_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("1_pj5sd")
+
+[node name="background_texture" type="TextureRect" parent="."]
+modulate = Color(1, 0.462745, 0.988235, 0.796078)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -440.0
+offset_top = -740.0
+offset_right = 440.0
+offset_bottom = 740.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_krg2t")
+
+[node name="game_titel_label" type="Label" parent="background_texture"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -612.0
+offset_right = 328.0
+offset_bottom = -446.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Space Quiz"
+label_settings = SubResource("LabelSettings_chwfr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="menu_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -412.0
+offset_right = 228.0
+offset_bottom = -337.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o2lm1")
+
+[node name="costum_subject_text" type="Label" parent="menu_panel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -220.0
+offset_top = -31.5
+offset_right = -4.0
+offset_bottom = 32.5
+grow_horizontal = 0
+grow_vertical = 2
+text = "Vælg selvalgt emne"
+label_settings = SubResource("LabelSettings_kweqy")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="label_splitter" type="Panel" parent="menu_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -23.5
+offset_right = 2.0
+offset_bottom = 23.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l2ahu")
+
+[node name="pdf_upload_text" type="Label" parent="menu_panel"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -31.5
+offset_right = 225.0
+offset_bottom = 32.5
+grow_vertical = 2
+text = "Upload pdf note-fil"
+label_settings = SubResource("LabelSettings_shr4f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="file_upload_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -240.0
+offset_right = 276.0
+offset_bottom = 240.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aewtb")
+
+[node name="file_upload_response_label" type="Label" parent="file_upload_panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -276.0
+offset_top = -238.0
+offset_right = 276.0
+offset_bottom = 238.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Drag/drop files here"
+label_settings = SubResource("LabelSettings_slcgh")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="file_upload_name" type="Label" parent="file_upload_panel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -276.0
+offset_right = 276.0
+offset_bottom = 66.0
+grow_horizontal = 2
+text = "Drag/drop files here"
+label_settings = SubResource("LabelSettings_0kcbr")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="generate_questions_button" type="Panel" parent="."]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = 285.0
+offset_right = 128.0
+offset_bottom = 380.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_46541")
+
+[node name="generate_questions_button" type="Button" parent="generate_questions_button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -25.0
+offset_right = 68.5
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_j1vg6")
+theme_override_font_sizes/font_size = 24
+text = "Generate question"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="pressed" from="generate_questions_button/generate_questions_button" to="." method="_on_generate_questions_button_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
