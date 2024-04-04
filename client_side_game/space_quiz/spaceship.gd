@@ -3,6 +3,7 @@ extends CharacterBody2D
 # Speed of the movement
 @export var speed = 400
 @export var health = 1
+@export var ammunition = 1 
 
 # Fetching missile scene 
 @onready var missile_scene = preload("res://space_quiz/spaceship_missile/missile.tscn")
@@ -25,8 +26,9 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_up"):
 		motion.y -= 1
 	
-	# Checking if space is pressed for shooting missile
-	if Input.is_action_just_pressed("space"):
+	# Checking if space is pressed for shooting missile and if any ammunition is left
+	print(ammunition )
+	if Input.is_action_just_pressed("space") and ammunition > 0:
 		
 		# Adding missile to space_quiz node as parent
 		get_parent().add_child(missile_scene.instantiate())

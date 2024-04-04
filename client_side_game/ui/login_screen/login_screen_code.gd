@@ -6,9 +6,11 @@ extends Control
 
 # Variable for scenehanlder that hold all general functions for the differnt scenes
 @onready var scene_handler = get_parent()
+	
+func _ready():
+	scene_handler._highlight_node(get_node('username_panel'))
 
 func _handle_request_data(json_data):
-	
 	# Switching screen since this signal will only be recieved if message was success
 	scene_handler._switch_scenes('question_generator', true, self)
 
@@ -28,3 +30,7 @@ func _on_signup_button_pressed():
 	
 	# Sending signup request to server
 	scene_handler._send_request({'email':username, 'password':password}, 'user_signup')
+
+
+func _on_username_panel_mouse_entered():
+	pass # Replace with function body.

@@ -58,6 +58,17 @@ func _on_error_close_button_pressed():
 	# Hiding error pop up
 	get_node("error_pop_up").visible = false
 	
+############## NODE HIGHLIGHT HANDLER ############
+
+func _highlight_node(node):
+	
+	# Fetching the stylebox form the given node
+	var styleBox = node.get_theme_stylebox("panel")
+	print(styleBox)
+	# Highlighting the node with white 
+	if styleBox != null:
+		styleBox.shadow_color = Color(1, 1, 1)
+	
 	
 ############### WEBREQUEST's ##################
 func _send_request(data : Dictionary, dest : String):

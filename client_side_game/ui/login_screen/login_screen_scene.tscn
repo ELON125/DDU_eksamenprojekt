@@ -1,10 +1,21 @@
-[gd_scene load_steps=8 format=3 uid="uid://cub5htfquhpmf"]
+[gd_scene load_steps=10 format=3 uid="uid://cub5htfquhpmf"]
 
 [ext_resource type="Script" path="res://ui/login_screen/login_screen_code.gd" id="1_gleg2"]
 [ext_resource type="Texture2D" uid="uid://bwyahmyjmje33" path="res://space_background_image.webp" id="2_v5dme"]
+[ext_resource type="Script" path="res://ui/login_screen/username_panel.gd" id="3_nkn22"]
 [ext_resource type="Texture2D" uid="uid://cghbbbn4hg4ix" path="res://ui/login_screen/username_icon.png" id="3_u3t4d"]
 [ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="4_8qejo"]
 [ext_resource type="Texture2D" uid="uid://dqb0ypfqpg3w0" path="res://ui/login_screen/lock_icon.png" id="5_jpe33"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_71r7h"]
+bg_color = Color(0.494118, 0, 0.509804, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k01vj"]
 bg_color = Color(0.494118, 0, 0.509804, 1)
@@ -67,7 +78,8 @@ offset_right = 200.0
 offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_k01vj")
+theme_override_styles/panel = SubResource("StyleBoxFlat_71r7h")
+script = ExtResource("3_nkn22")
 
 [node name="username_panel_icon" type="Panel" parent="username_panel"]
 layout_mode = 1
@@ -242,6 +254,7 @@ vertical_alignment = 1
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
+[connection signal="mouse_entered" from="username_panel" to="username_panel" method="_on_mouse_entered"]
 [connection signal="pressed" from="button_field/login_button" to="." method="_on_login_button_pressed"]
 [connection signal="pressed" from="button_field/signup" to="." method="_on_signup_button_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_request_completed"]
