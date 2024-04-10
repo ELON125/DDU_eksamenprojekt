@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce1orgkwq6ydl"]
+[gd_scene load_steps=11 format=3 uid="uid://ce1orgkwq6ydl"]
 
 [ext_resource type="Script" path="res://ui/pop_up_screen/question_pop_up.gd" id="1_8tjru"]
+[ext_resource type="Script" path="res://ui/pop_up_screen/question_pop_up_window.gd" id="2_4mfhp"]
 [ext_resource type="Texture2D" uid="uid://bwyahmyjmje33" path="res://space_background_image.webp" id="2_elxxw"]
 [ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="3_o2n8b"]
 
@@ -32,9 +33,13 @@ corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 7
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2utgr"]
 bg_color = Color(0.494118, 0, 0.509804, 1)
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 7
 
 [node name="question_screen" type="Control"]
 visible = false
@@ -55,6 +60,7 @@ initial_position = 2
 size = Vector2i(650, 825)
 unresizable = true
 always_on_top = true
+script = ExtResource("2_4mfhp")
 
 [node name="background_texture" type="TextureRect" parent="Window"]
 modulate = Color(1, 0.462745, 0.988235, 0.796078)

@@ -60,3 +60,11 @@ func _on_generate_questions_button_pressed():
 		file_upload_response_text.text = 'Generating question, this procces might take up to a minute'
 	else:
 		file_upload_response_text.text = 'Upload a file first!'
+
+
+# Functions for highlighting nodes when mouse is hovering
+func _on_mouse_entered(hover_element_name):
+	scene_handler._highlight_node(get_node(str(hover_element_name)))
+
+func _on_mouse_exited(hover_element_name):
+	scene_handler._end_highlight_node(get_node(str(hover_element_name)))

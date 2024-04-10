@@ -1,0 +1,15 @@
+[remap]
+
+importer="impl_import.plugin"
+type="Resource"
+uid="uid://denrugwj16p8f"
+path="res://.godot/imported/main.gd.impl-996a927d7918e5bfd8b848945a595e2d.res"
+
+[deps]
+
+source_file="main.gd.impl"
+dest_files=["res://.godot/imported/main.gd.impl-996a927d7918e5bfd8b848945a595e2d.res"]
+
+[params]
+
+byte_length=256

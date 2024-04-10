@@ -8,6 +8,7 @@ var index = 0
 @onready var scene_handler = get_parent()
 
 func _on_next_button_pressed():
+	print('pressed_next')
 	
 	# Checking if the next index would be more than the amount of level card panels
 	if index +1 > 2:
@@ -25,6 +26,7 @@ func _on_next_button_pressed():
 		
 
 func _on_previous_button_pressed():
+	print('previous pressed')
 	# Checking if the next index would be more than the amount of level card panels
 	if index -1 < 0:
 		return 
@@ -55,3 +57,11 @@ func _on_play_buttn_pressed():
 		# Returning user to question generator 
 		scene_handler._switch_scenes('question_generator', true, self)
 		
+
+
+# Functions for highlighting nodes when mouse is hovering
+func _on_mouse_entered(hover_element_name):
+	scene_handler._highlight_node(get_node(str(hover_element_name)))
+
+func _on_mouse_exited(hover_element_name):
+	scene_handler._end_highlight_node(get_node(str(hover_element_name)))

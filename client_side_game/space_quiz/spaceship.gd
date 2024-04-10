@@ -32,6 +32,8 @@ func _physics_process(delta):
 		
 		# Adding missile to space_quiz node as parent
 		get_parent().add_child(missile_scene.instantiate())
+		
+		ammunition -=1
 	
 	# Calculating the motion and moving
 	move_and_collide(motion * speed * delta)

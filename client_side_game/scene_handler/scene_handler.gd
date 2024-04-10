@@ -1,5 +1,8 @@
 extends Node2D
 
+# A client id for when handeling webrequest 
+var client_id = 'b1bd93c2dc9207d2'
+
 # Instatiating all the scenes 
 @onready var death_screen_scene = preload("res://ui/death_screen/death_screen.tscn")
 @onready var level_selection_scene = preload("res://ui/level_selection/level_selection_scene.tscn")
@@ -64,27 +67,39 @@ func _highlight_node(node):
 	
 	# Fetching the stylebox form the given node
 	var styleBox = node.get_theme_stylebox("panel")
-	print(styleBox)
+
 	# Highlighting the node with white 
 	if styleBox != null:
 		styleBox.shadow_color = Color(1, 1, 1)
+
+func _end_highlight_node(node):
+	
+	# Fetching the stylebox form the given node
+	var styleBox = node.get_theme_stylebox("panel")
+	
+	# Highlighting the node with white 
+	if styleBox != null:
+		styleBox.shadow_color = Color(0, 0, 0)
 	
 	
 ############### WEBREQUEST's ##################
+
 func _send_request(data : Dictionary, dest : String):
 	# Preparing data for webrequest
-	var url = 'http://127.0.0.1:5000/' + dest
+	var url = 'http://172.104.132.48:40490/' + dest
 	var json = JSON.stringify(data)
 	var headers = ["Content-Type: application/json"]
 	
 	# Sending the request
 	$HTTPRequest.request(url, headers, HTTPClient.METHOD_POST, json)
-
+	
+	
 func _on_request_completed(result, response_code, headers, body):
 	# Parsing the json response
 	var json = JSON.parse_string(body.get_string_from_utf8())
-	# Emitting the signal that data hase been returned
-	emit_signal("request_data_received", json)
+	
+	# Emitting the signal that data hase been returned ( Debugging )
+	#emit_signal("request_data_received", json)
 	
 	# Checking if request was successful
 	if 'error' in str(json):
@@ -102,5 +117,7 @@ func _on_request_completed(result, response_code, headers, body):
 	else:
 		
 		# Emitting the signal that data hase been returned
-		#emit_signal("request_data_received", json)
-		return
+		emit_signal("request_data_received", json)
+		#return 
+		
+

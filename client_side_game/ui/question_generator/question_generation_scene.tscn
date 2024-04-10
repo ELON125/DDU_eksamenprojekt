@@ -254,5 +254,7 @@ text = "Generate question"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
+[connection signal="mouse_entered" from="generate_questions_button/generate_questions_button" to="." method="_on_mouse_entered" binds= [&"generate_questions_button"]]
+[connection signal="mouse_exited" from="generate_questions_button/generate_questions_button" to="." method="_on_mouse_exited" binds= [&"generate_questions_button"]]
 [connection signal="pressed" from="generate_questions_button/generate_questions_button" to="." method="_on_generate_questions_button_pressed"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]

@@ -7,8 +7,7 @@ extends Node2D
 # Create another way to recieve question otherwise they will all come in the end. Mayb make the respawn timer restart or reduce by something
 
 # Fetching the question pop_up_scene
-@onready var pop_up_scene = preload("res://ui/pop_up_screen/question_pop_up.tscn").instantiate()
-@onready var pop_up_scene_window = pop_up_scene.get_node('Window')
+@onready var pop_up_scene_window = get_node('question_pop_up')
 @onready var pop_up_question = pop_up_scene_window.get_node('question_panel').get_node('question_label')
 @onready var pop_up_answer_1 = pop_up_scene_window.get_node('answer_1')
 @onready var pop_up_answer_2 = pop_up_scene_window.get_node('answer_2')
@@ -28,9 +27,6 @@ var game_running = true
 func _ready():
 	# Hiding the pop_up
 	pop_up_scene_window.visible = false
-	
-	# Adding the pop up to the scene
-	add_child(pop_up_scene)
 
 func _change_game_status(game_running_status : bool):
 	game_running =  game_running_status

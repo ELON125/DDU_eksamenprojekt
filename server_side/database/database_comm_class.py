@@ -1,6 +1,5 @@
 import mysql.connector
 import configparser
-import _secure_data
 
 class DatabaseComm:
     def __init__(self):
@@ -26,14 +25,9 @@ class DatabaseComm:
             print(f"Error: {err}")
 
     def execute_query(self, query, params=None):
-        #Encrypting all the data going into database
-        new_params = tuple(_secure_data.encrypt(parameter) for parameter in params) if params is not None else ()
-        print(new_params)
-
-        # Executing query
         try:
-            result = self.cursor.execute(query, new_params)
-            print(result)
+            result = self.cursor.execute(query, params)
+
             self.connection.commit()
             print("Query executed successfully")
 

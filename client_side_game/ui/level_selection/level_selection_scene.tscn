@@ -36,7 +36,7 @@ font_size = 50
 shadow_size = 5
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbwc6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weuya"]
 bg_color = Color(0.494118, 0, 0.509804, 1)
 corner_radius_top_left = 60
 corner_radius_top_right = 60
@@ -51,14 +51,13 @@ font_size = 32
 shadow_size = 10
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8y5ul"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dqsb4"]
 bg_color = Color(0.494118, 0, 0.509804, 1)
-draw_center = false
 corner_radius_top_left = 60
 corner_radius_top_right = 60
 corner_radius_bottom_right = 60
 corner_radius_bottom_left = 60
-shadow_color = Color(1, 1, 1, 1)
+shadow_color = Color(0, 0, 0, 1)
 shadow_size = 10
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vxgtf"]
@@ -89,6 +88,7 @@ script = ExtResource("1_g5bv0")
 
 [node name="background_texture" type="TextureRect" parent="."]
 modulate = Color(1, 0.462745, 0.988235, 0.796078)
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -319,7 +319,7 @@ offset_right = 307.08
 offset_bottom = 57.3999
 grow_horizontal = 0
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tbwc6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_weuya")
 
 [node name="arrow_image" type="TextureRect" parent="next_button"]
 layout_mode = 1
@@ -382,7 +382,7 @@ offset_top = -57.6001
 offset_right = -196.92
 offset_bottom = 57.3999
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_tbwc6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dqsb4")
 
 [node name="arrow_image" type="TextureRect" parent="previous"]
 layout_mode = 1
@@ -414,22 +414,6 @@ offset_right = 45.0
 offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="previous" type="Panel" parent="previous"]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -57.5
-offset_top = -57.5
-offset_right = 57.5
-offset_bottom = 57.5
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_8y5ul")
 
 [node name="back_level_label" type="Label" parent="previous"]
 layout_mode = 1
@@ -501,6 +485,12 @@ step = 1.0
 value = 1.0
 show_percentage = false
 
+[connection signal="mouse_entered" from="next_button/next_button" to="." method="_on_mouse_entered" binds= [&"next_button"]]
+[connection signal="mouse_exited" from="next_button/next_button" to="." method="_on_mouse_exited" binds= [&"next_button"]]
 [connection signal="pressed" from="next_button/next_button" to="." method="_on_next_button_pressed"]
+[connection signal="mouse_entered" from="previous/previous_button" to="." method="_on_mouse_entered" binds= [&"previous"]]
+[connection signal="mouse_exited" from="previous/previous_button" to="." method="_on_mouse_exited" binds= [&"previous"]]
 [connection signal="pressed" from="previous/previous_button" to="." method="_on_previous_button_pressed"]
+[connection signal="mouse_entered" from="play_panel/play_buttn" to="." method="_on_mouse_entered" binds= [&"play_panel"]]
+[connection signal="mouse_exited" from="play_panel/play_buttn" to="." method="_on_mouse_exited" binds= [&"play_panel"]]
 [connection signal="pressed" from="play_panel/play_buttn" to="." method="_on_play_buttn_pressed"]
