@@ -62,7 +62,9 @@ def check_data_hash(request_data):
 
     # Constructing the
     hash_object = hashlib.sha256(hashing_str.encode()).hexdigest()
-
+    print('Client hash : ' + client_hash)
+    print('Server hash : ' + hash_object)
+    print('Request nonce : ' + str(request_nonce))
     # Checking if the two hashesh match
     if client_hash == hash_object:
         return True
