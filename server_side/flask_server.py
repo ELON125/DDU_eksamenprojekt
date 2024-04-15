@@ -74,13 +74,18 @@ def user_login():
 
 @app.route('/create_nonce', methods = ['POST'])
 def gen_nonce():
-
     try:
+        # Fetching data from request
+        data = request.get_json()
+
         # Generate a random 64-bit nonce
         nonce = secrets.token_bytes(8)
 
         # To display it as a hexadecimal string instead of bytes
         nonce_hex = nonce.hex()
+
+        # Inserting nonce in the database
+        database.execute_query("INSERT INTO nonce_db (nonce, client_id) VALUES (%s, %s)", params=(nonce, data['client_id']))
 
         return jsonify({'message': 'Nonce created successfully', 'nonce': nonce_hex})
 

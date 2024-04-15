@@ -50,6 +50,7 @@ func _switch_scenes(next_scene : String, delete_last : bool, previous_scene = nu
 		previous_scene.queue_free()
 		
 ############## ERROR POP UP's ################
+
 func _error_pop_up(error_message):
 	# Setting the error pop up text
 	get_node("error_pop_up/error_text_panel/error_text_label").text = error_message
@@ -84,40 +85,55 @@ func _end_highlight_node(node):
 	
 ############### WEBREQUEST's ##################
 
+# Variables holding the data and destination while the nonce is generated
+var data_storage = null 
+var dest_storage = null
+
+# Variables holding static values
+var headers = ["Content-Type: application/json"]
+var server_url = 'http://172.104.132.48:40490/'
+
 func _send_request(data : Dictionary, dest : String):
+	# Updating the data and dest variables for when the nonce has been generated
+	data_storage = data
+	dest_storage = dest
+	
 	# Preparing data for webrequest
-	var url = 'http://172.104.132.48:40490/' + dest
-	var json = JSON.stringify(data)
-	var headers = ["Content-Type: application/json"]
+	var json = JSON.stringify({'client_id' : client_id})
+	var request_destination = server_url + 'get_nonce'
 	
 	# Sending the request
-	$HTTPRequest.request(url, headers, HTTPClient.METHOD_POST, json)
+	$HTTPRequest.request(request_destination, headers, HTTPClient.METHOD_POST, json)
 	
-	
-func _on_request_completed(result, response_code, headers, body):
+func _on_request_completed(body):
 	# Parsing the json response
-	var json = JSON.parse_string(body.get_string_from_utf8())
-	
-	# Emitting the signal that data hase been returned ( Debugging )
-	#emit_signal("request_data_received", json)
+	var json_response = JSON.parse_string(body.get_string_from_utf8())
 	
 	# Checking if request was successful
-	if 'error' in str(json):
+	if 'error' in str(json_response):
 		
 		# Displaying an error pop up with the error message 
-		_error_pop_up('An error happened : ' + str(json['error']))
+		_error_pop_up('An error happened : ' + str(json_response['error']))
 	
 	# Checking if response is null
-	elif json == null:
+	elif json_response == null:
 		
 		# Displaying an error pop up with the error message 
 		_error_pop_up('An error happened : '  + 'No response recieved from server ')
 	
-	# Emitting signal with data if error checks were passed 
+	# Checking if this was a normal server response or the one after nonce was generated
+	elif 'nonce' in str(json_response):
+		
+		# Preparing data for webrequest
+		var json = JSON.stringify(data_storage)
+		var request_destination = server_url + dest_storage
+		
+		# Sending the request
+		$HTTPRequest.request(request_destination, headers, HTTPClient.METHOD_POST, json)
+		
+	# Emitting signal with data if error checks were passed  and its not a response containing the nonce
 	else:
 		
 		# Emitting the signal that data hase been returned
-		emit_signal("request_data_received", json)
-		#return 
-		
+		emit_signal("request_data_received", json_response) 
 
