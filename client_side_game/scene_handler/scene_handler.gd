@@ -2,6 +2,7 @@ extends Node2D
 
 # A client id for when handeling webrequest 
 var client_id = 'b1bd93c2dc9207d2'
+var hash_security_token = 'd1b3a5bece9cb101'
 
 # Instatiating all the scenes 
 @onready var death_screen_scene = preload("res://ui/death_screen/death_screen.tscn")
@@ -89,9 +90,15 @@ func _end_highlight_node(node):
 var data_storage = null 
 var dest_storage = null
 
-# Variables holding static values
-var headers = ["Content-Type: application/json"]
-var server_url = 'http://172.104.132.48:40490/'
+#var server_url = 'http://172.104.132.48:40490/'
+var server_url = 'http://192.168.0.198:40490/'
+
+func _create_data_hash(data: String, nonce: String):
+	# Preparing data for hashing
+	var hashing_str = str(data) + client_id + hash_security_token + nonce
+	
+	# Returning the hashed str
+	return hashing_str.sha256_text()
 
 func _send_request(data : Dictionary, dest : String):
 	# Updating the data and dest variables for when the nonce has been generated
@@ -100,12 +107,12 @@ func _send_request(data : Dictionary, dest : String):
 	
 	# Preparing data for webrequest
 	var json = JSON.stringify({'client_id' : client_id})
-	var request_destination = server_url + 'get_nonce'
+	var request_destination = server_url + 'create_nonce'
 	
 	# Sending the request
-	$HTTPRequest.request(request_destination, headers, HTTPClient.METHOD_POST, json)
+	$HTTPRequest.request(request_destination, ["Content-Type: application/json"], HTTPClient.METHOD_POST, json)
 	
-func _on_request_completed(body):
+func _on_request_completed(result, response_code, headers, body):
 	# Parsing the json response
 	var json_response = JSON.parse_string(body.get_string_from_utf8())
 	
@@ -124,12 +131,26 @@ func _on_request_completed(body):
 	# Checking if this was a normal server response or the one after nonce was generated
 	elif 'nonce' in str(json_response):
 		
+		# Adding the client id to the data being sent
+		data_storage.merge({'client_id':client_id})
+		
 		# Preparing data for webrequest
 		var json = JSON.stringify(data_storage)
 		var request_destination = server_url + dest_storage
 		
+		# Creating a hash from the data, nonce, hash_security_token and client_id to prevent replay attacks
+		# Im using the serialized json string to create the hash because the dictionary item order changes when serializing to dict
+		var data_hash = _create_data_hash(json, json_response['nonce'])
+		
+		# Now i can create a list the data storage which will get serialized the same way as when it was hashed, and then add the second element which is the data has
+		# The reason im doing this as a list is so the json serialization doesnt change the order if request_hash is added to the dict
+		json = JSON.stringify([data_storage, {'request_hash':data_hash}])
+
+		# Canceling previous request othervise error will be caused
+		$HTTPRequest.cancel_request()
+		
 		# Sending the request
-		$HTTPRequest.request(request_destination, headers, HTTPClient.METHOD_POST, json)
+		$HTTPRequest.request(request_destination, ["Content-Type: application/json"], HTTPClient.METHOD_POST, json)
 		
 	# Emitting signal with data if error checks were passed  and its not a response containing the nonce
 	else:
