@@ -176,6 +176,8 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
+[node name="HTTPRequest2" type="HTTPRequest" parent="."]
+
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_request_completed"]
 [connection signal="close_requested" from="error_pop_up" to="." method="_on_error_close_button_pressed"]
 [connection signal="pressed" from="error_pop_up/error_close_button" to="." method="_on_error_close_button_pressed"]

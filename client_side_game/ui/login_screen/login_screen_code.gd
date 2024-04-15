@@ -17,7 +17,7 @@ func _on_login_button_pressed():
 	var password = password_input_field.text
 	
 	# Sending login request to server 
-	scene_handler._send_request({'email':username, 'password':password}, 'user_login')
+	scene_handler._send_request({'email':username, 'password':password, 'client_id':scene_handler.client_id}, 'user_login')
 
 
 func _on_signup_button_pressed():
