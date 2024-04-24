@@ -1,6 +1,3 @@
-import json
-
-import mysql.connector
 import bcrypt
 from flask import Flask, request, jsonify
 from database.database_comm_class import DatabaseComm
@@ -9,6 +6,7 @@ from email_validator import validate_email, EmailNotValidError
 import _read_pdf_from_bytes
 import secrets
 import _secure_data
+import datetime
 
 database = DatabaseComm()
 database.connect()
@@ -20,7 +18,11 @@ app = Flask(__name__)
 def user_signup():
     try:
         # Fetching data from request
-        data = request.get_json()
+        data = request.get_json()[0]
+
+        #Checking if the security hashesh match
+        if not _secure_data.check_data_hash(request.get_json()):
+            return jsonify({'error': 'Security check failed'})
 
         #Checking if email is valid
         try:
@@ -34,7 +36,6 @@ def user_signup():
 
         # Inserting data into user database
         database.execute_query("INSERT INTO users (email, password, total_points, client_id) VALUES (%s, %s, %s, %s)", params=(data["email"], hashed_password, 0, data['client_id']))
-
         return jsonify({'message': 'Data inserted'})
 
     except Exception as e:
@@ -46,10 +47,13 @@ def user_signup():
 def user_login():
     try:
         # Fetching data from request
-        data = request.get_json()
-
+        data = request.get_json()[0]
         submitted_password = data['password']
-        print(data)
+
+        # Checking if the security hashesh match
+        if not _secure_data.check_data_hash(request.get_json()):
+            return jsonify({'error': 'Security check failed'})
+
         # Requesting database for password with the given username
         result_user_db = database.fetch_all("SELECT * FROM users WHERE email = %s", params=(data['email'],))
 
@@ -73,8 +77,9 @@ def user_login():
         return jsonify({'error': str(e)})
 
 @app.route('/create_nonce', methods = ['POST'])
-def gen_nonce():
+def create_nonce():
     try:
+
         # Fetching data from request
         data = request.get_json()
 
@@ -85,13 +90,13 @@ def gen_nonce():
         nonce_hex = nonce.hex()
 
         # Inserting nonce in the database
-        database.execute_query("INSERT INTO nonce_db (nonce, client_id) VALUES (%s, %s)", params=(nonce, data['client_id']))
+        result = database.execute_query("INSERT INTO nonce_db (nonce, client_id, timestamp) VALUES (%s, %s, NOW())", params=(nonce_hex, data['client_id']))
 
         return jsonify({'message': 'Nonce created successfully', 'nonce': nonce_hex})
 
-    except:
+    except Exception as e:
+        print(e)
         return jsonify({'error': 'An error happened while generating nonce'})
-
 
 
 
@@ -99,7 +104,11 @@ def gen_nonce():
 def gen_questions():
     try:
         # Fetching data from request
-        data = request.get_json()
+        data = request.get_json()[0]
+
+        # Checking if the security hashesh match
+        if not _secure_data.check_data_hash(request.get_json()):
+            return jsonify({'error': 'Security check failed'})
 
         # Converting pdf byte data to text
         pdf_text = _read_pdf_from_bytes.read(data['uploaded_file_bytes'])
@@ -113,5 +122,5 @@ def gen_questions():
         return jsonify({'error': str(e)})
 
 if __name__ == '__main__':
-    app.run(debug=True, host='172.104.132.48', port=40490)
-    #app.run(debug=True, port=5000)
+    #app.run(debug=True, host='172.104.132.48', port=40490)
+    app.run(debug=True,host='192.168.0.198', port=40490)

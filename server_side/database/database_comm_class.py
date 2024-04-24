@@ -39,7 +39,6 @@ class DatabaseComm:
         try:
             self.cursor.execute(query, params)
             result = self.cursor.fetchall()
-            print(result)
             return result
         except mysql.connector.Error as err:
             print(f"Error: {err}")
