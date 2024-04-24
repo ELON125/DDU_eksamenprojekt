@@ -2,7 +2,6 @@ extends Node2D
 
 # Fetching the meteor scene
 @onready var meteor_scene = preload("res://space_quiz/meteor/meteor.tscn")
-
 # Fetching meteor spawn_timer
 @onready var spawn_timer = get_node('meteor_spawn_timer')
 
@@ -54,6 +53,9 @@ func _on_meteor_spawn_timer_timeout():
 	
 	# Adding missiles to the spaceship based on amount of meteors spawned 
 	get_parent().get_node('spaceship').ammunition = meteors_to_spawn + 1
+	get_parent().get_node('spaceship').get_node('ammo_bar').max_value = meteors_to_spawn + 1
+	get_parent().get_node('spaceship').get_node('ammo_bar').value = meteors_to_spawn + 1
+	
 	
 	# Adjust the spawn rate based on time elapsed
 	adjust_spawn_rate_based_on_time()
@@ -70,4 +72,3 @@ func adjust_spawn_rate_based_on_time():
 	
 	#Updating the spawn rate time
 	spawn_timer.wait_time = spawn_rate
-	print(spawn_rate)

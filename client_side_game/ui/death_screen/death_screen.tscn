@@ -11,9 +11,9 @@ font_color = Color(0.494118, 0, 0.509804, 1)
 shadow_size = 20
 shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_1rexd"]
+[sub_resource type="LabelSettings" id="LabelSettings_rxh6x"]
 font = ExtResource("3_56ajy")
-font_size = 46
+font_size = 35
 shadow_size = 20
 shadow_color = Color(0, 0, 0, 1)
 
@@ -58,9 +58,9 @@ anchor_top = 0.5
 anchor_right = 0.509
 anchor_bottom = 0.5
 offset_left = -447.92
-offset_top = -548.0
+offset_top = -500.0
 offset_right = 432.08
-offset_bottom = -382.0
+offset_bottom = -334.0
 grow_horizontal = 2
 text = "You died!"
 label_settings = SubResource("LabelSettings_rxxqa")
@@ -74,28 +74,102 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -278.0
-offset_top = -320.0
-offset_right = 278.0
-offset_bottom = 320.0
+offset_left = 39.0
+offset_top = -174.0
+offset_right = 261.0
+offset_bottom = 174.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="game_score_titel" type="Label" parent="game_score_panel"]
+[node name="game_score_text" type="Label" parent="game_score_panel"]
 top_level = true
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.509
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 0.509
+anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -455.92
-offset_top = -320.0
-offset_right = 424.08
-offset_bottom = -154.0
+offset_left = -280.5
+offset_top = -190.0
+offset_right = -19.5
+offset_bottom = -90.0
 grow_horizontal = 2
-text = "Game score:"
-label_settings = SubResource("LabelSettings_1rexd")
+grow_vertical = 2
+text = "Game score"
+label_settings = SubResource("LabelSettings_rxh6x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="game_score" type="Label" parent="game_score_panel"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -280.5
+offset_top = -50.0
+offset_right = -19.5
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0
+"
+label_settings = SubResource("LabelSettings_rxh6x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hight_score_panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -261.0
+offset_top = -174.0
+offset_right = -39.0
+offset_bottom = 174.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="high_score_text" type="Label" parent="hight_score_panel"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.5
+offset_top = -190.0
+offset_right = 280.5
+offset_bottom = -90.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "High score
+"
+label_settings = SubResource("LabelSettings_rxh6x")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="high_score" type="Label" parent="hight_score_panel"]
+top_level = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.5
+offset_top = -50.0
+offset_right = 280.5
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0"
+label_settings = SubResource("LabelSettings_rxh6x")
 horizontal_alignment = 1
 vertical_alignment = 1
 

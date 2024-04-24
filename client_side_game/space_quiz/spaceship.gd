@@ -8,6 +8,9 @@ extends CharacterBody2D
 # Fetching missile scene 
 @onready var missile_scene = preload("res://space_quiz/spaceship_missile/missile.tscn")
 
+# Fetching the ammo bar node
+@onready var ammo_bar = get_node('ammo_bar')
+
 func _physics_process(delta):
 	# Checking if game is running
 	if get_parent().game_running == false:
@@ -27,13 +30,15 @@ func _physics_process(delta):
 		motion.y -= 1
 	
 	# Checking if space is pressed for shooting missile and if any ammunition is left
-	print(ammunition )
 	if Input.is_action_just_pressed("space") and ammunition > 0:
 		
 		# Adding missile to space_quiz node as parent
 		get_parent().add_child(missile_scene.instantiate())
 		
 		ammunition -=1
+		
+	# Updating the ammo bar
+	ammo_bar.value = ammunition
 	
 	# Calculating the motion and moving
 	move_and_collide(motion * speed * delta)

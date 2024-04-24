@@ -1,31 +1,76 @@
-[gd_scene load_steps=21 format=3 uid="uid://1iyny16aqfha"]
+[gd_scene load_steps=29 format=3 uid="uid://1iyny16aqfha"]
 
 [ext_resource type="Script" path="res://space_quiz/main/space_quiz.gd" id="1_n6cjm"]
 [ext_resource type="Script" path="res://space_quiz/spaceship.gd" id="2_7pknx"]
-[ext_resource type="Texture2D" uid="uid://brlrltp02vdqp" path="res://space_quiz/main/download.png" id="3_4fqrk"]
+[ext_resource type="Texture2D" uid="uid://fi7ifbhysuh6" path="res://space_quiz/rumskib_til_ddu.png" id="3_fslcd"]
 [ext_resource type="Script" path="res://space_quiz/meteor/meteor_spawner.gd" id="4_ka8yx"]
-[ext_resource type="Texture2D" uid="uid://62crnhnghlya" path="res://space_quiz/Screenshot 2024-03-13 at 12.45.08.png" id="6_iatlp"]
-[ext_resource type="Texture2D" uid="uid://d2timh8a1ir86" path="res://space_quiz/ui/heart.png" id="7_q215d"]
-[ext_resource type="Texture2D" uid="uid://cs4a8oem410xg" path="res://space_quiz/ui/life-line.png" id="8_apfo1"]
-[ext_resource type="Script" path="res://ui/pop_up_screen/question_pop_up_window.gd" id="8_ixcso"]
+[ext_resource type="Texture2D" uid="uid://bi204p4i7kpdk" path="res://space_quiz/ui/ammo_box_til_ddu_spil.png" id="5_6786m"]
+[ext_resource type="Texture2D" uid="uid://lw0oi1mdpmbi" path="res://space_quiz/rumstation_til_ddu_spil-6.png" id="6_ipb1l"]
+[ext_resource type="Script" path="res://space_quiz/main/spacestation.gd" id="6_qxffo"]
+[ext_resource type="Texture2D" uid="uid://d0263k7nkf8b7" path="res://space_quiz/shield_til_ddu_spaceship-4.png" id="7_l6xcq"]
 [ext_resource type="Texture2D" uid="uid://bwyahmyjmje33" path="res://space_background_image.webp" id="9_n3k23"]
 [ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="10_awklr"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xi6vq"]
-size = Vector2(968, 448)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v5l45"]
-bg_color = Color(0.494118, 0, 0.509804, 1)
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_size = 10
+[ext_resource type="Script" path="res://space_quiz/main/score_board.gd" id="10_rm1qw"]
+[ext_resource type="Texture2D" uid="uid://c3od3khuieoba" path="res://space_quiz/space_quiz_background.webp" id="11_gejbi"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ktas"]
-texture = ExtResource("7_q215d")
+texture = ExtResource("5_6786m")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4mp1s"]
-texture = ExtResource("8_apfo1")
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xi6vq"]
+size = Vector2(968, 170.691)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gflso"]
+bg_color = Color(0.6, 0, 0.0823529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rrh2k"]
+bg_color = Color(0, 0.552941, 0.0784314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2gxqg"]
+font = ExtResource("10_awklr")
+font_size = 50
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_60xmf"]
+load_path = "res://.godot/imported/rumskib_til_ddu.png-4ba3c7833bab65e565304b55275a2343.ctex"
+
+[sub_resource type="GDScript" id="GDScript_bw0kx"]
+script/source = "extends Window
+
+# Variable for scenehanlder that hold all general functions for the differnt scenes
+@onready var scene_handler = get_parent().get_parent()
+
+# Fetching the space quiz controller node 
+@onready var space_quiz_controller_node = get_parent()
+
+func _on_answer_pressed(extra_arg_0):
+	# Fetching the button that was pressed
+	var pressed_button = get_node(str(extra_arg_0))
+
+	# Fetching the pressed button text
+	var pressed_button_text = pressed_button.text 
+
+	# Checking if answer was correct
+	if str(pressed_button_text) == scene_handler.generated_questions[0]['answer']:
+		
+		# Resuing game
+		space_quiz_controller_node._change_game_status(true)
+		
+		# Removing the question used from the question list 
+		scene_handler.generated_questions.pop_front()
+	else: 
+		
+		scene_handler._switch_scenes('death_screen',true,space_quiz_controller_node)
+		
+	#Hiding pop up window again
+	self.visible = false
+	
+
+# Functions for highlighting nodes when mouse is hovering
+func _on_mouse_entered(hover_element_name):
+	scene_handler._highlight_node(get_node(str(hover_element_name)))
+
+func _on_mouse_exited(hover_element_name):
+	scene_handler._end_highlight_node(get_node(str(hover_element_name)))
+"
 
 [sub_resource type="LabelSettings" id="LabelSettings_tcmxw"]
 font = ExtResource("10_awklr")
@@ -41,7 +86,7 @@ bg_color = Color(0, 0, 0, 0.603922)
 font = ExtResource("10_awklr")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4dvca"]
-bg_color = Color(0.494118, 0, 0.509804, 1)
+bg_color = Color(0.494118, 0, 0.509804, 0.686275)
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
@@ -63,9 +108,42 @@ bg_color = Color(0.494118, 0, 0.509804, 1)
 shadow_color = Color(1, 1, 1, 1)
 shadow_size = 7
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_02pmq"]
+bg_color = Color(0.494118, 0, 0.509804, 0.65098)
+corner_radius_top_left = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_i0c0d"]
+font = ExtResource("10_awklr")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_by1c7"]
+font = ExtResource("10_awklr")
+font_size = 20
+
 [node name="space_quiz" type="Node2D"]
-position = Vector2(2.08165e-12, 2.08165e-12)
+position = Vector2(-440, -740)
 script = ExtResource("1_n6cjm")
+
+[node name="background_texture" type="TextureRect" parent="."]
+modulate = Color(0.611765, 0.611765, 0.611765, 0.894118)
+show_behind_parent = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.0
+offset_top = -118.0
+offset_right = 956.0
+offset_bottom = 1674.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.995086, 1.00942)
+texture = ExtResource("11_gejbi")
 
 [node name="spaceship" type="CharacterBody2D" parent="."]
 position = Vector2(440, 800)
@@ -74,22 +152,103 @@ script = ExtResource("2_7pknx")
 [node name="spaceship_texture" type="Sprite2D" parent="spaceship"]
 position = Vector2(2, 4.00003)
 scale = Vector2(1.0084, 0.943396)
-texture = ExtResource("3_4fqrk")
+texture = ExtResource("3_fslcd")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="spaceship"]
-polygon = PackedVector2Array(3, -94, -15, -77, -31, -41, -36, -8, -33, 31, -51, 46, -59, 70, -58, 90, -55, 99, -44, 82, -31, 71, -23, 67, -20, 74, -6, 71, -3, 90, 1, 99, 4, 98, 8, 83, 10, 71, 24, 74, 27, 67, 46, 80, 59, 99, 64, 86, 62, 66, 55, 47, 37, 31, 41, 1, 36, -37, 23, -72, 4, -93)
+polygon = PackedVector2Array(1, -80, -8, -72, -14, -60, -15, -47, -21, -45, -23, -31, -68, -2, -66, 15, -26, 16, -40, 29, -50, 35, -50, 48, -41, 49, -21, 36, -18, 48, 0, 48, 21, 49, 23, 36, 47, 50, 55, 48, 56, 36, 45, 28, 28, 15, 71, 14, 71, -2, 24, -29, 20, -42, 19, -60, 12, -74)
+
+[node name="ammo_bar" type="ProgressBar" parent="spaceship"]
+offset_left = 100.0
+offset_top = 63.0
+offset_right = 262.0
+offset_bottom = 77.0
+rotation = -1.5708
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 3.0
+step = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="space_station_hp_icon" type="Panel" parent="spaceship/ammo_bar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -31.0
+offset_right = -24.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxTexture_1ktas")
 
 [node name="spacestation" type="CharacterBody2D" parent="."]
-position = Vector2(440, 1300)
+position = Vector2(440, 1420)
+scale = Vector2(1, 1.00181)
+script = ExtResource("6_qxffo")
 
 [node name="collision_shape" type="CollisionShape2D" parent="spacestation"]
-position = Vector2(1, 0)
+position = Vector2(1, -26.4522)
 shape = SubResource("RectangleShape2D_xi6vq")
 
 [node name="spaceship_texture" type="Sprite2D" parent="spacestation"]
-position = Vector2(1.00003, 0)
-scale = Vector2(0.760935, 0.667229)
-texture = ExtResource("6_iatlp")
+position = Vector2(-2.5, -80.1773)
+scale = Vector2(1.24184, 1.4495)
+texture = ExtResource("6_ipb1l")
+
+[node name="shield_texture_1" type="TextureRect" parent="spacestation"]
+offset_left = -19.0
+offset_top = -100.0
+offset_right = 25.0
+offset_bottom = -37.0
+texture = ExtResource("7_l6xcq")
+
+[node name="shield_texture_2" type="TextureRect" parent="spacestation"]
+offset_left = 25.0
+offset_top = -100.0
+offset_right = 71.0
+offset_bottom = -37.0
+texture = ExtResource("7_l6xcq")
+
+[node name="shield_texture_3" type="TextureRect" parent="spacestation"]
+offset_left = 71.0
+offset_top = -99.8193
+offset_right = 115.0
+offset_bottom = -36.8193
+texture = ExtResource("7_l6xcq")
+
+[node name="health_progressbar" type="ProgressBar" parent="spacestation"]
+offset_left = -82.0
+offset_top = -22.0
+offset_right = 181.0
+theme_override_styles/background = SubResource("StyleBoxFlat_gflso")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rrh2k")
+max_value = 10.0
+step = 1.0
+value = 10.0
+show_percentage = false
+
+[node name="health_label" type="Label" parent="spacestation"]
+offset_left = 187.0
+offset_top = -44.0
+offset_right = 235.0
+offset_bottom = 22.0
+text = "10"
+label_settings = SubResource("LabelSettings_2gxqg")
+
+[node name="spaceship_hp_texture" type="TextureRect" parent="spacestation"]
+visible = false
+modulate = Color(1, 1, 1, 0.458824)
+offset_left = 178.0
+offset_top = -54.9006
+offset_right = 245.0
+offset_bottom = 29.0994
+texture = SubResource("CompressedTexture2D_60xmf")
+expand_mode = 1
 
 [node name="meteor_spawner" type="Node2D" parent="."]
 script = ExtResource("4_ka8yx")
@@ -97,119 +256,16 @@ script = ExtResource("4_ka8yx")
 [node name="meteor_spawn_timer" type="Timer" parent="meteor_spawner"]
 autostart = true
 
-[node name="game__ui" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 382.0
-offset_bottom = 136.0
-
-[node name="game_health_overlay" type="Panel" parent="game__ui"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 7.0
-offset_top = 8.0
-offset_right = -116.0
-offset_bottom = -10.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_v5l45")
-
-[node name="space_station_hp_bar" type="ProgressBar" parent="game__ui/game_health_overlay"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 45.0
-offset_top = -39.0
-offset_right = 253.0
-offset_bottom = -10.0
-grow_vertical = 0
-max_value = 3.0
-step = 1.0
-value = 1.0
-show_percentage = false
-
-[node name="space_station_hp_text" type="Label" parent="game__ui/game_health_overlay/space_station_hp_bar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -62.0
-offset_top = -43.5
-offset_right = 64.0
-offset_bottom = -17.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Spacestation HP"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="space_station_hp_icon" type="Panel" parent="game__ui/game_health_overlay/space_station_hp_bar"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -17.0
-offset_right = -6.0
-offset_bottom = 17.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_1ktas")
-
-[node name="question_lifeline_bar" type="ProgressBar" parent="game__ui/game_health_overlay"]
-layout_mode = 1
-offset_left = 45.0
-offset_top = 23.0
-offset_right = 253.0
-offset_bottom = 52.0
-max_value = 10.0
-step = 1.0
-value = 10.0
-show_percentage = false
-
-[node name="question_life_lines_text" type="Label" parent="game__ui/game_health_overlay/question_lifeline_bar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -79.0
-offset_top = -39.5
-offset_right = 79.0
-offset_bottom = -13.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Question lifelines"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="question_life_lines_icon" type="Panel" parent="game__ui/game_health_overlay/question_lifeline_bar"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -17.0
-offset_right = -6.0
-offset_bottom = 17.0
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_4mp1s")
-
 [node name="question_pop_up" type="Window" parent="."]
 initial_position = 2
 size = Vector2i(650, 825)
-visible = false
 unresizable = true
 always_on_top = true
-script = ExtResource("8_ixcso")
+transparent = true
+script = SubResource("GDScript_bw0kx")
 
 [node name="background_texture" type="TextureRect" parent="question_pop_up"]
-modulate = Color(1, 0.462745, 0.988235, 0.796078)
+modulate = Color(0.611765, 0.611765, 0.611765, 0.933333)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -327,6 +383,57 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_4dvca")
 theme_override_styles/hover = SubResource("StyleBoxFlat_fy6p2")
 action_mode = 0
 text = "1250"
+clip_text = true
+
+[node name="score_board" type="Panel" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 677.0
+offset_top = 9.0
+offset_right = 871.0
+offset_bottom = 83.0
+grow_horizontal = 0
+scale = Vector2(1.00505, 0.999338)
+theme_override_styles/panel = SubResource("StyleBoxFlat_02pmq")
+script = ExtResource("10_rm1qw")
+
+[node name="high_score_label" type="Label" parent="score_board"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -29.5
+offset_right = 82.5
+offset_bottom = -0.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "High score: "
+label_settings = SubResource("LabelSettings_i0c0d")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="current_score_label" type="Label" parent="score_board"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = 0.5
+offset_right = 82.5
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Current score: "
+label_settings = SubResource("LabelSettings_by1c7")
+horizontal_alignment = 1
+vertical_alignment = 1
 clip_text = true
 
 [connection signal="timeout" from="meteor_spawner/meteor_spawn_timer" to="meteor_spawner" method="_on_meteor_spawn_timer_timeout"]

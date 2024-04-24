@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 # Fetching spaceship node
 @onready var spaceship = get_parent().get_node('spaceship')
+
 # Fecthing game controller node
 @onready var space_quiz_controller_node = get_parent()
 
@@ -36,3 +37,6 @@ func _physics_process(delta):
 			
 			#Deleting the missile after it has hit something
 			self.queue_free()
+			
+			# Updating the score 
+			space_quiz_controller_node.current_score +=1

@@ -3,19 +3,17 @@
 [ext_resource type="Script" path="res://scene_handler/scene_handler.gd" id="1_bvw6b"]
 [ext_resource type="Texture2D" uid="uid://djkoq60unltpd" path="res://scene_handler/error.png" id="2_wig6c"]
 [ext_resource type="FontFile" uid="uid://dh5dy7o21t2xc" path="res://font.ttf" id="3_w5fu6"]
+[ext_resource type="Script" path="res://scene_handler/help_button_window.gd" id="4_sa6fd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_40g5c"]
 texture = ExtResource("2_wig6c")
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cr8a"]
+line_spacing = 2.0
 font = ExtResource("3_w5fu6")
-font_size = 24
+font_size = 17
 shadow_size = 3
 shadow_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Curve" id="Curve_15pwu"]
-_data = [Vector2(0.256182, 0.267068), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
-point_count = 2
 
 [node name="scenehandler" type="Node2D"]
 visibility_layer = 3
@@ -23,6 +21,7 @@ position = Vector2(440, 740)
 script = ExtResource("1_bvw6b")
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+timeout = 30.0
 
 [node name="error_pop_up" type="Window" parent="."]
 title = "Error!"
@@ -93,7 +92,7 @@ clip_text = true
 
 [node name="game_guide_pop_up" type="Window" parent="."]
 title = "Guide"
-position = Vector2i(50, 50)
+position = Vector2i(50, 75)
 size = Vector2i(420, 350)
 visible = false
 unresizable = true
@@ -102,22 +101,23 @@ always_on_top = true
 
 [node name="guide_text_panel" type="Panel" parent="game_guide_pop_up"]
 visibility_layer = 2
-custom_minimum_size = Vector2(265, 270)
+custom_minimum_size = Vector2(400, 270)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -158.0
-offset_right = 190.0
-offset_bottom = 112.0
+offset_left = -200.0
+offset_top = -155.0
+offset_right = 200.0
+offset_bottom = 115.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="guide_text_label" type="Label" parent="game_guide_pop_up/guide_text_panel"]
+clip_contents = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -134,10 +134,10 @@ size_flags_horizontal = 4
 label_settings = SubResource("LabelSettings_0cr8a")
 horizontal_alignment = 1
 vertical_alignment = 1
-autowrap_mode = 1
+autowrap_mode = 3
 clip_text = true
 
-[node name="guide_next_button" type="Button" parent="game_guide_pop_up/guide_text_panel"]
+[node name="guide_close_button" type="Button" parent="game_guide_pop_up/guide_text_panel"]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -148,36 +148,38 @@ offset_bottom = 50.0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("3_w5fu6")
 theme_override_font_sizes/font_size = 20
-text = "Next"
+text = "Close"
 
-[node name="dont_show_button" type="Button" parent="game_guide_pop_up/guide_text_panel"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -165.0
-offset_top = 5.0
-offset_bottom = 50.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="help_button_window" type="Window" parent="."]
+transparent_bg = true
+position = Vector2i(0, 4)
+size = Vector2i(150, 100)
+unresizable = true
+borderless = true
+always_on_top = true
+transparent = true
+script = ExtResource("4_sa6fd")
+
+[node name="help_button" type="Button" parent="help_button_window"]
+clip_children = 2
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -46.0
+offset_right = 58.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_w5fu6")
-theme_override_font_sizes/font_size = 20
-text = "Dont show again
-"
-
-[node name="Line2D" type="Line2D" parent="."]
-visible = false
-position = Vector2(-440, -740)
-points = PackedVector2Array(311, 390, 77, 753, 357, 858)
-width_curve = SubResource("Curve_15pwu")
-joint_mode = 2
-begin_cap_mode = 2
-end_cap_mode = 2
-
-[node name="HTTPRequest2" type="HTTPRequest" parent="."]
+theme_override_font_sizes/font_size = 25
+text = "Help"
+clip_text = true
 
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_request_completed"]
 [connection signal="close_requested" from="error_pop_up" to="." method="_on_error_close_button_pressed"]
 [connection signal="pressed" from="error_pop_up/error_close_button" to="." method="_on_error_close_button_pressed"]
+[connection signal="pressed" from="game_guide_pop_up/guide_text_panel/guide_close_button" to="help_button_window" method="_on_guide_close_button_pressed"]
+[connection signal="pressed" from="help_button_window/help_button" to="help_button_window" method="_help_button_pressed"]
