@@ -1,5 +1,18 @@
 import mysql.connector
 import configparser
+from cryptography.fernet import Fernet
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.primitives import hashes
+import base64
+
+fernet_key = Fernet(b'5ahI6Cv8wRv3IYXmsorvTcFaL_PHfxsI2kPbixF8tMA=')
+
+def encrypt(input_string):
+    return fernet_key.encrypt(str(input_string).encode('utf-8'))
+
+def decrypt(input_string):
+    return fernet_key.decrypt(input_string.decode('utf-8'))
 
 class DatabaseComm:
     def __init__(self):
@@ -29,7 +42,6 @@ class DatabaseComm:
             result = self.cursor.execute(query, params)
 
             self.connection.commit()
-            print("Query executed successfully")
 
             return result
         except mysql.connector.Error as err:
