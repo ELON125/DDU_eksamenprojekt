@@ -2,7 +2,7 @@ extends Control
 
 @onready var panel_list = [$level_1_card_panel, $level_2_card_panel, $level_3_card_panel]
 @onready var level_progress_bar = $level_progress_bar
-var index = 0 
+var index = 1 
 
 # Variable for scenehanlder that hold all general functions for the differnt scenes
 @onready var scene_handler = get_parent()

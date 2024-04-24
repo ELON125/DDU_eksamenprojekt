@@ -3,22 +3,27 @@ extends Node2D
 # A client id for when handeling webrequest 
 var client_id = 'b1bd93c2dc9207d2'
 var hash_security_token = 'd1b3a5bece9cb101'
+var player_account_id : String
+var saved_notes : Array
+
+# Program state variables
+var current_scene : String
+var high_score : int
+var current_score : int
 
 # Instatiating all the scenes 
-@onready var death_screen_scene = preload("res://ui/death_screen/death_screen.tscn")
 @onready var level_selection_scene = preload("res://ui/level_selection/level_selection_scene.tscn")
 @onready var login_scene = preload("res://ui/login_screen/login_screen_scene.tscn")
 @onready var question_generator_scene = preload("res://ui/question_generator/question_generation_scene.tscn")
 @onready var space_quiz_scene = preload("res://space_quiz/main/space_quiz.tscn")
-@onready var lost_screen = preload("res://ui/death_screen/death_screen.tscn")
+@onready var death_screen = preload("res://ui/death_screen/death_screen.tscn")
 
 @onready var scene_dict = {
-	'death_screen' : death_screen_scene,
 	'level_selection' : level_selection_scene,
 	'login' : login_scene,
 	'question_generator' : question_generator_scene,
 	'space_quiz' : space_quiz_scene,
-	'lost_screen' : lost_screen
+	'death_screen' : death_screen
 }
 
 # A signal being emitted when request data has been recieved
@@ -32,6 +37,7 @@ func _ready():
 	_switch_scenes('login', false)
 
 ############## SCENE HANDLING ################
+
 func _switch_scenes(next_scene : String, delete_last : bool, previous_scene = null):
 	
 	# Instantiateing the next scene here otherwise kernel error will happen when re calling a scene
@@ -50,7 +56,11 @@ func _switch_scenes(next_scene : String, delete_last : bool, previous_scene = nu
 	if delete_last:
 		previous_scene.queue_free()
 		
-############## ERROR POP UP's ################
+	# Updating the current scene variable
+	current_scene = next_scene
+		
+		
+############## ERROR POP UP's ####### #########
 
 func _error_pop_up(error_message):
 	# Setting the error pop up text
@@ -89,28 +99,47 @@ func _end_highlight_node(node):
 # Variables holding the data and destination while the nonce is generated
 var data_storage = null 
 var dest_storage = null
+var encrypt_outgoing_data_storage = null 
 
 #var server_url = 'http://172.104.132.48:40490/'
 var server_url = 'http://192.168.0.198:40490/'
 
-func _create_data_hash(data: String, nonce: String):
-	# Preparing data for hashing
-	var hashing_str = str(data) + client_id + hash_security_token + nonce
-	
-	# Returning the hashed str
-	return hashing_str.sha256_text()
+func _create_data_hash(data):
 
-func _send_request(data : Dictionary, dest : String):
+	# Returning the hashed str
+	return str(data).sha256_text()
+	
+# Function to call the Python script and get the encrypted message
+func encrypt_data(data):
+	var new_dict = {}
+	var debug_dict = {}
+	for key in data:
+
+		# Ensure the correct path to your Python script and adjust the python command as needed (e.g., python3)
+		var pystdout = []
+		OS.execute("/usr/local/bin/python3.11", ["client_side_encryption.py",data[key]],pystdout , true)
+		OS.execute("/usr/local/bin/python3.11", ["client_side_encryption.py",key],pystdout , true)
+			
+		# Adding the new encrypted key to thge dictionary
+		new_dict[pystdout[1]] = pystdout[0]
+			
+		debug_dict[key] = pystdout[1]
+		
+	# Returning encrypted dict
+	return new_dict
+	
+func _send_request(data : Dictionary, dest : String, encrypt_outgoing_data = true):
 	# Updating the data and dest variables for when the nonce has been generated
 	data_storage = data
 	dest_storage = dest
+	encrypt_outgoing_data_storage = encrypt_outgoing_data
 	
 	# Preparing data for webrequest
-	var json = JSON.stringify({'client_id' : client_id})
+	var encrypted_json = JSON.stringify(encrypt_data({'client_id' : client_id}))
 	var request_destination = server_url + 'create_nonce'
 	
 	# Sending the request
-	$HTTPRequest.request(request_destination, ["Content-Type: application/json"], HTTPClient.METHOD_POST, json)
+	$HTTPRequest.request(request_destination, ["Content-Type: application/json"], HTTPClient.METHOD_POST, encrypted_json)
 	
 func _on_request_completed(result, response_code, headers, body):
 	# Parsing the json response
@@ -129,32 +158,36 @@ func _on_request_completed(result, response_code, headers, body):
 		_error_pop_up('An error happened : '  + 'No response recieved from server ')
 	
 	# Checking if this was a normal server response or the one after nonce was generated
-	elif 'nonce' in str(json_response):
-		
-		# Adding the client id to the data being sent
-		data_storage.merge({'client_id':client_id})
-		
+	elif 'nonce' in json_response:
+		print(json_response)
+		# Checking if the data should be encrypted
+		if encrypt_outgoing_data_storage:
+			# Encrypting the data 
+			data_storage = encrypt_data(data_storage)
+			
 		# Preparing data for webrequest
 		var json = JSON.stringify(data_storage)
 		var request_destination = server_url + dest_storage
 		
-		# Creating a hash from the data, nonce, hash_security_token and client_id to prevent replay attacks
-		# Im using the serialized json string to create the hash because the dictionary item order changes when serializing to dict
-		var data_hash = _create_data_hash(json, json_response['nonce'])
-		
-		# Now i can create a list the data storage which will get serialized the same way as when it was hashed, and then add the second element which is the data has
-		# The reason im doing this as a list is so the json serialization doesnt change the order if request_hash is added to the dict
-		json = JSON.stringify([data_storage, {'request_hash':data_hash}])
+		# Creating a hash from the data, nonce, hash_security_token and client_id to prevent replay attacks, Im using the serialized json string to create the hash because the dictionary item order changes when serializing to dict
+		var data_hash = _create_data_hash(str(json).replace(" ","") + client_id + hash_security_token + json_response['nonce'])
 
+		# Encrypting request hash
+		var data_hash_dict = encrypt_data({"request_hash":data_hash, 'client_id':client_id})
+
+		# Now i can create a list the data storage which will get serialized the same way as when it was hashed, and then add the second element which is the data has, The reason im doing this as a list is so the json serialization doesnt change the order if request_hash is added to the dict
+		var encrypted_json = JSON.stringify([json, data_hash_dict])
 		# Canceling previous request othervise error will be caused
 		$HTTPRequest.cancel_request()
 		
 		# Sending the request
-		$HTTPRequest.request(request_destination, ["Content-Type: application/json"], HTTPClient.METHOD_POST, json)
+		$HTTPRequest.request(request_destination, ["Content-Type: application/json"], HTTPClient.METHOD_POST, encrypted_json)
 		
 	# Emitting signal with data if error checks were passed  and its not a response containing the nonce
 	else:
 		
 		# Emitting the signal that data hase been returned
 		emit_signal("request_data_received", json_response) 
+		
+	
 

@@ -17,11 +17,11 @@ var _impl:=preload("res://main.gd.impl")  # load implementation
 var variable
 
 func _ready():
-    _impl.call_impl("_ready",self)
+	_impl.call_impl("_ready",self)
 
 
 func function(greetings:String):
-    _impl.call_impl("function",self,"hello")
+	_impl.call_impl("function",self,"hello")
 ```
 3. Write function implementations to .impl files.
 These scripts do not need to extend any class.
@@ -30,10 +30,10 @@ Do not use `self` in .impl file, use `this` passed by `call_impl()` instead.
 You can also use super class function by passing lambda as a argument.
 ```gdscript
 func _ready(this:Object,_args):
-    this.variable=1
+	this.variable=1
 
 
 func function(_this:Object,args):
-    print(args)
+	print(args)
 ```
 4. .impl is encrypted and decrypted when loaded.
