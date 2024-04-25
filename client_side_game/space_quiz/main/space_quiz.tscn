@@ -220,7 +220,8 @@ scale = Vector2(1.0084, 0.943396)
 texture = ExtResource("3_fslcd")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="spaceship"]
-scale = Vector2(1e-05, 1e-05)
+position = Vector2(0, 2.67029e-05)
+scale = Vector2(1.03664, 1.01024)
 polygon = PackedVector2Array(1, -80, -8, -72, -14, -60, -15, -47, -21, -45, -23, -31, -68, -2, -66, 15, -26, 16, -40, 29, -50, 35, -50, 48, -41, 49, -21, 36, -18, 48, 0, 48, 21, 49, 23, 36, 47, 50, 55, 48, 56, 36, 45, 28, 28, 15, 71, 14, 71, -2, 24, -29, 20, -42, 19, -60, 12, -74)
 
 [node name="ammo_bar" type="ProgressBar" parent="spaceship"]

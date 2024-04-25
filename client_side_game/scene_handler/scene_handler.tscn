@@ -152,7 +152,7 @@ text = "Close"
 
 [node name="help_button_window" type="Window" parent="."]
 transparent_bg = true
-position = Vector2i(-23, 4)
+position = Vector2i(0, 4)
 size = Vector2i(150, 100)
 unresizable = true
 borderless = true
@@ -167,9 +167,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -41.0
+offset_left = -65.0
 offset_top = -46.0
-offset_right = 58.0
+offset_right = 34.0
 offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2

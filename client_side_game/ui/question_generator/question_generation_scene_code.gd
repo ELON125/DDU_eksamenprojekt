@@ -25,7 +25,7 @@ func _ready():
 
 # Function for handling all webrequest
 func _handle_request_data(json_data):
-	
+
 	# Checking if the return is fetching saved notes or the question list
 	if 'saved_notes' in str(json_data):
 		scene_handler.saved_notes = json_data['saved_notes']
@@ -33,7 +33,7 @@ func _handle_request_data(json_data):
 	elif 'question_list' in str(json_data):
 		# Checking if enough questions were generated
 		if len(json_data['question_list']) != 10:
-			scene_handler._error_pop_up('Something went wrong while generating questions, not enought questions generated')
+			scene_handler._error_pop_up('Please try again something went wrong while generating questions, not enought questions generated. Developers have been notified')
 			return 
 			
 		# Setting the questions variable in the scene handler

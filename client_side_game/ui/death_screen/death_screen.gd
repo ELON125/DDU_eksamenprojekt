@@ -7,6 +7,19 @@ extends Control
 @onready var game_score = get_node('game_score_panel/game_score')
 @onready var high_score = get_node('hight_score_panel/high_score')
 
+# A variable to check that the data has been updated before continueing other wise this will mess up godot
+var data_handled = false
+
+# Fetching the return to menu button
+@onready var return_to_menu_button = get_node("return_to_menu_button_panel/return_to_menu_button")
+
+# Handling incommming data
+func _handle_request_data(json_data):	
+	data_handled = true
+	
+	# Switching scenes
+	scene_handler._switch_scenes('question_generator', true, self)
+	
 func _ready():
 	# Checking if the new score was a high score
 	if scene_handler.current_score > scene_handler.high_score:
@@ -21,7 +34,13 @@ func _ready():
 	
 
 func _on_return_to_menu_button_pressed():
-	
-	scene_handler._switch_scenes('question_generator', true, self)
+	if data_handled == true:
+		# Switching scenes
+		scene_handler._switch_scenes('question_generator', true, self)
+	else:
+		
+		# If data has not yet been handled by database updating button text
+		return_to_menu_button.text = 'Loading...'
+		
 	
 	

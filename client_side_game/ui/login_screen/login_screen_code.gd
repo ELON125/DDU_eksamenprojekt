@@ -7,7 +7,7 @@ extends Control
 # Variable for scenehanlder that hold all general functions for the differnt scenes
 @onready var scene_handler = get_parent()
 
-func _handle_request_data(json_data):
+func _handle_request_data(json_data):	
 	# Checking if the request was a login request
 	scene_handler.high_score = str(json_data['user_data']['high_score'])
 	scene_handler.player_account_id = str(json_data['user_data']['player_id'])
