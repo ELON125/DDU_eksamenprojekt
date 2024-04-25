@@ -69,6 +69,7 @@ func adjust_spawn_rate_based_on_time():
 	
 	# Check to be sure spawn rate does not fall under the minmum spawn rate
 	var spawn_rate = max(min_spawn_rate, new_spawn_rate)
-	
+	print('########## Updating spawn rate ##########')
+	print(spawn_rate)
 	#Updating the spawn rate time
 	spawn_timer.wait_time = spawn_rate

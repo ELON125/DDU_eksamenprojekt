@@ -186,5 +186,6 @@ def update_high_score():
     return jsonify({'message': 'High score updated'})
 
 if __name__ == '__main__':
-    #app.run(debug=True, host='172.104.132.48', port=40490)
-    app.run(debug=True, host='192.168.0.198', port=40490)
+    print('40490')
+    app.run(debug=True, host='172.104.132.48', port=40490)
+    #app.run(debug=True, host='192.168.0.198', port=47564)

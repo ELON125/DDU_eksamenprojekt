@@ -1,12 +1,14 @@
 extends CharacterBody2D
 
 # Speed of the movement
-@export var speed = randi_range(230,350)
+@export var speed = randi_range(230,345)
 
 # Fetching the game controller node 
 @onready var space_quiz_controller_node = get_parent().get_parent()
 
 func _ready():
+	print('######## METEOR SPEED ########')
+	print(speed)
 	self.position = Vector2(randi_range(50,830),0)
 
 func _physics_process(delta):

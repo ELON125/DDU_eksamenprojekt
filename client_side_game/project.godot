@@ -10,14 +10,14 @@ config_version=5
 
 [application]
 
-config/name="Godot-eksamenprojekt"
+config/name="Spacequiz"
 run/main_scene="res://scene_handler/scene_handler.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 
 [display]
 
 window/size/viewport_width=880
-window/size/viewport_height=1480
+window/size/viewport_height=1000
 
 [input]
 

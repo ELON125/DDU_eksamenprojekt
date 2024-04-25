@@ -30,8 +30,7 @@ func _handle_request_data(json_data):
 	if 'saved_notes' in str(json_data):
 		scene_handler.saved_notes = json_data['saved_notes']
 		scroll_container._update()
-	else:
-		
+	elif 'question_list' in str(json_data):
 		# Checking if enough questions were generated
 		if len(json_data['question_list']) != 10:
 			scene_handler._error_pop_up('Something went wrong while generating questions, not enought questions generated')
@@ -46,7 +45,7 @@ func _handle_request_data(json_data):
 # Function that will be called when files are dropped
 func on_files_dropped(files):
 	#Updating the file_upload_name with the name of the file that was upladed
-	var file_name = files[0].split('/')[-1]
+	var file_name = files[0].split('/')[-1].split("\\")[-1]
 	file_upload_name.text = file_name
 	
 	# Checking how many files have been dropped

@@ -2,7 +2,7 @@ extends Control
 
 # Declaring username and password input field variables
 @onready var username_input_field = $username_panel/username_inputfield
-@onready var password_input_field = $password_panel/password_input_field
+@onready var password_input_field = $password_panel/password_input
 
 # Variable for scenehanlder that hold all general functions for the differnt scenes
 @onready var scene_handler = get_parent()

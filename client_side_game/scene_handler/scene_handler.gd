@@ -101,15 +101,15 @@ var data_storage = null
 var dest_storage = null
 var encrypt_outgoing_data_storage = null 
 
-#var server_url = 'http://172.104.132.48:40490/'
-var server_url = 'http://192.168.0.198:40490/'
+var server_url = 'http://172.104.132.48:40490/'
+#var server_url = 'http://192.168.0.198:40490/'
 
 func _create_data_hash(data):
 
 	# Returning the hashed str
 	return str(data).sha256_text()
 	
-# Function to call the Python script and get the encrypted message
+# Function to call the Python script and get the encrypted mezssage
 func encrypt_data(data):
 	var new_dict = {}
 	var debug_dict = {}
@@ -117,9 +117,16 @@ func encrypt_data(data):
 
 		# Ensure the correct path to your Python script and adjust the python command as needed (e.g., python3)
 		var pystdout = []
-		OS.execute("/usr/local/bin/python3.11", ["client_side_encryption.py",data[key]],pystdout , true)
-		OS.execute("/usr/local/bin/python3.11", ["client_side_encryption.py",key],pystdout , true)
-			
+		var output = []
+		# Get the directory path of the current game executable
+		var game_dir = OS.get_executable_path()
+		print('############# Using the following path to python encryption #############')
+		print(game_dir+'/'+'client_side_encryption.exe')
+		# Execute the executable
+		OS.execute("client_side_encryption.exe",[data[key]], pystdout, true)
+		OS.execute("client_side_encryption.exe",[key],pystdout, true)
+		print('############# Encryption ouput #############')
+		print(pystdout)
 		# Adding the new encrypted key to thge dictionary
 		new_dict[pystdout[1]] = pystdout[0]
 			
@@ -144,7 +151,8 @@ func _send_request(data : Dictionary, dest : String, encrypt_outgoing_data = tru
 func _on_request_completed(result, response_code, headers, body):
 	# Parsing the json response
 	var json_response = JSON.parse_string(body.get_string_from_utf8())
-	
+	print('############# Reponse from server #############')
+	print(json_response)
 	# Checking if request was successful
 	if 'error' in str(json_response):
 		
@@ -159,7 +167,7 @@ func _on_request_completed(result, response_code, headers, body):
 	
 	# Checking if this was a normal server response or the one after nonce was generated
 	elif 'nonce' in json_response:
-		print(json_response)
+		
 		# Checking if the data should be encrypted
 		if encrypt_outgoing_data_storage:
 			# Encrypting the data 

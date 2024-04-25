@@ -13,9 +13,6 @@
 [ext_resource type="Script" path="res://space_quiz/main/score_board.gd" id="10_rm1qw"]
 [ext_resource type="Texture2D" uid="uid://c3od3khuieoba" path="res://space_quiz/space_quiz_background.webp" id="11_gejbi"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ktas"]
-texture = ExtResource("5_6786m")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xi6vq"]
 size = Vector2(968, 170.691)
 
@@ -31,6 +28,9 @@ font_size = 50
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_60xmf"]
 load_path = "res://.godot/imported/rumskib_til_ddu.png-4ba3c7833bab65e565304b55275a2343.ctex"
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1ktas"]
+texture = ExtResource("5_6786m")
 
 [sub_resource type="GDScript" id="GDScript_bw0kx"]
 script/source = "extends Window
@@ -118,14 +118,14 @@ shadow_size = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_i0c0d"]
 font = ExtResource("10_awklr")
-font_size = 20
+font_size = 18
 
 [sub_resource type="LabelSettings" id="LabelSettings_by1c7"]
 font = ExtResource("10_awklr")
-font_size = 20
+font_size = 18
 
 [node name="space_quiz" type="Node2D"]
-position = Vector2(-440, -740)
+position = Vector2(-440, -490)
 script = ExtResource("1_n6cjm")
 
 [node name="background_texture" type="TextureRect" parent="."]
@@ -145,49 +145,8 @@ grow_vertical = 2
 scale = Vector2(0.995086, 1.00942)
 texture = ExtResource("11_gejbi")
 
-[node name="spaceship" type="CharacterBody2D" parent="."]
-position = Vector2(440, 800)
-script = ExtResource("2_7pknx")
-
-[node name="spaceship_texture" type="Sprite2D" parent="spaceship"]
-position = Vector2(2, 4.00003)
-scale = Vector2(1.0084, 0.943396)
-texture = ExtResource("3_fslcd")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="spaceship"]
-polygon = PackedVector2Array(1, -80, -8, -72, -14, -60, -15, -47, -21, -45, -23, -31, -68, -2, -66, 15, -26, 16, -40, 29, -50, 35, -50, 48, -41, 49, -21, 36, -18, 48, 0, 48, 21, 49, 23, 36, 47, 50, 55, 48, 56, 36, 45, 28, 28, 15, 71, 14, 71, -2, 24, -29, 20, -42, 19, -60, 12, -74)
-
-[node name="ammo_bar" type="ProgressBar" parent="spaceship"]
-offset_left = 100.0
-offset_top = 63.0
-offset_right = 262.0
-offset_bottom = 77.0
-rotation = -1.5708
-size_flags_horizontal = 4
-size_flags_vertical = 4
-max_value = 3.0
-step = 1.0
-value = 1.0
-show_percentage = false
-
-[node name="space_station_hp_icon" type="Panel" parent="spaceship/ammo_bar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -85.0
-offset_top = -31.0
-offset_right = -24.0
-offset_bottom = 28.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = 1.5708
-theme_override_styles/panel = SubResource("StyleBoxTexture_1ktas")
-
 [node name="spacestation" type="CharacterBody2D" parent="."]
-position = Vector2(440, 1420)
+position = Vector2(440, 950)
 scale = Vector2(1, 1.00181)
 script = ExtResource("6_qxffo")
 
@@ -250,6 +209,49 @@ offset_bottom = 29.0994
 texture = SubResource("CompressedTexture2D_60xmf")
 expand_mode = 1
 
+[node name="spaceship" type="CharacterBody2D" parent="."]
+top_level = true
+position = Vector2(440, 600)
+script = ExtResource("2_7pknx")
+
+[node name="spaceship_texture" type="Sprite2D" parent="spaceship"]
+position = Vector2(2, 4.00003)
+scale = Vector2(1.0084, 0.943396)
+texture = ExtResource("3_fslcd")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="spaceship"]
+scale = Vector2(1e-05, 1e-05)
+polygon = PackedVector2Array(1, -80, -8, -72, -14, -60, -15, -47, -21, -45, -23, -31, -68, -2, -66, 15, -26, 16, -40, 29, -50, 35, -50, 48, -41, 49, -21, 36, -18, 48, 0, 48, 21, 49, 23, 36, 47, 50, 55, 48, 56, 36, 45, 28, 28, 15, 71, 14, 71, -2, 24, -29, 20, -42, 19, -60, 12, -74)
+
+[node name="ammo_bar" type="ProgressBar" parent="spaceship"]
+offset_left = 100.0
+offset_top = 63.0
+offset_right = 262.0
+offset_bottom = 77.0
+rotation = -1.5708
+size_flags_horizontal = 4
+size_flags_vertical = 4
+max_value = 3.0
+step = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="space_station_hp_icon" type="Panel" parent="spaceship/ammo_bar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -31.0
+offset_right = -24.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxTexture_1ktas")
+
 [node name="meteor_spawner" type="Node2D" parent="."]
 script = ExtResource("4_ka8yx")
 
@@ -259,6 +261,7 @@ autostart = true
 [node name="question_pop_up" type="Window" parent="."]
 initial_position = 2
 size = Vector2i(650, 825)
+visible = false
 unresizable = true
 always_on_top = true
 transparent = true
@@ -405,10 +408,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -82.5
-offset_top = -29.5
-offset_right = 82.5
-offset_bottom = -0.5
+offset_left = -88.0
+offset_top = -29.0
+offset_right = 89.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "High score: "
@@ -424,10 +426,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -82.5
-offset_top = 0.5
-offset_right = 82.5
-offset_bottom = 29.5
+offset_left = -88.0
+offset_top = 1.0
+offset_right = 89.0
+offset_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Current score: "
