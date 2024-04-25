@@ -21,7 +21,7 @@ def check_and_error_decorator(error_message, security_check = True):
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            #try:
+            try:
                 # Checking if a security check should be made
                 if security_check:
                     print(request.get_json())
@@ -33,16 +33,16 @@ def check_and_error_decorator(error_message, security_check = True):
 
                 # Call the decorated function
                 return func(*args, **kwargs)
-            #except Exception as e:
-            #    # Email the developers
-            #    new_email = emailHandler(f'Error in function {func.__name__}: {e.__context__}')
-            #    new_email.add_content(error=str(e))
-            #    new_email.send_email()
-#
-            #    # Handle the exception
-            #    print("Error:", e)
-            #    #error_message = str(error_message['error']) + '(Developers have been notified in regards to the error and will be in touch)'
-            #    return jsonify(error_message)
+            except Exception as e:
+                # Email the developers
+                new_email = emailHandler(f'Error in function {func.__name__}: {e.__context__}')
+                new_email.add_content(error=str(e))
+                new_email.send_email()
+
+                # Handle the exception
+                print("Error:", e)
+                #error_message = str(error_message['error']) + '(Developers have been notified in regards to the error and will be in touch)'
+                return jsonify(error_message)
         return wrapper
     return decorator
 
