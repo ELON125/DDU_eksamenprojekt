@@ -41,7 +41,7 @@ func _add_label(label_text):
 
 func _on_label_button_pressed(button):
 	# Editing the saved notes help label
-	saved_notes_help_label.text = 'Generation questions this might take a minute'
+	saved_notes_help_label.text = 'Generating questions this might take a minute'
 	
 	# Sending request after questions
 	scene_handler._send_request({'amount':10, 'user_id':scene_handler.player_account_id, 'notes_title':button.text },'gen_questions',false)

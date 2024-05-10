@@ -1,7 +1,7 @@
 from openai import OpenAI
 import json
 
-client = OpenAI(api_key='REDACTED TO PREVENT MISS USE')
+client = OpenAI(api_key='')
 
 def gen_questions(pdf_text, amount):
 
